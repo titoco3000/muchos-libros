@@ -1,6 +1,6 @@
 # Muchos-libros
 
-IA para recomendação de livros, baseada em uma lista de JSONs.
+IA para recomendação de livros, baseada em uma lista de JSONs. Usa streamlit para criar uma interface gráfica.
 
 ## Instalação
 
@@ -14,4 +14,4 @@ Para iniciar o banco de dados vetorial:
 
 ## Uso
 
-    python3 main.py
+    streamlit run book-chat.py

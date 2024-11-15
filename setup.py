@@ -21,7 +21,7 @@ livros = [
 
 
 pc = Pinecone(api_key=os.getenv('PINECONE_API_KEY'))
-index_name = "libros"
+index_name = os.getenv('INDEX_NAME')
 
 if index_name in pc.list_indexes().names():
     try:
