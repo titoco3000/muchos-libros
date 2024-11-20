@@ -21,7 +21,7 @@ load_dotenv()
 # ]
 
 livros = get_database.get_data()
-
+exit()
 
 pc = Pinecone(api_key=os.getenv('PINECONE_API_KEY'))
 index_name = os.getenv('INDEX_NAME')

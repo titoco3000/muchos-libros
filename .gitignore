@@ -1,3 +1,6 @@
 .venv/
 .env
 *.pyc
+booksummaries/
+arquivo.ar.gz
+books.json
