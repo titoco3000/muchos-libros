@@ -12,6 +12,12 @@ pc = Pinecone(api_key=os.getenv('PINECONE_API_KEY'))
 index_name = os.getenv('INDEX_NAME')
 index = pc.Index(index_name)
 
+def parseGenero(gen):
+    try:
+        return ', '.join(list(json.loads(gen).values())) 
+    except:
+        return ''
+
 def recomendar(conversa:list):
     print(conversa[-1]['content'])
     query_embeddings = client.embeddings.create(
@@ -39,6 +45,6 @@ def recomendar(conversa:list):
     return response.choices[0].message.content, [
         {
             'titulo':r['titulo'], 
-            'genero':', '.join(list(json.loads((r['genero'])).values())) if r['genero'] is not None else '' 
+            'genero': parseGenero(r['genero'])
         } for r in resultados
     ]
