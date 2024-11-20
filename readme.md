@@ -4,7 +4,7 @@ IA para recomendação de livros, baseada em uma lista de JSONs. Usa streamlit p
 
 O relatório do projeto está disponível em  [relatorio.pdf](relatorio.pdf).
 
-O vídeo explicando pode ser visto [aqui](link-do-youtube).
+O vídeo explicando pode ser visto [aqui](https://youtu.be/8emoxXExaUc).
 
 ## Instalação
 
