@@ -4,6 +4,36 @@ import tarfile
 import shutil
 import os.path
 
+def baixar_e_descompactar(url):
+    """
+    Baixa um arquivo da URL especificada e descompacta-o na mesma pasta do script.
+
+    Args:
+        url (str): URL do arquivo a ser baixado.
+    """
+
+    # Obtendo o caminho absoluto da pasta do script
+    caminho_atual = os.path.dirname(os.path.abspath(__file__))
+
+    # Baixando o arquivo
+    response = requests.get(url, stream=True)
+    response.raise_for_status()
+
+    # Verificando a extensão do arquivo
+    if not response.headers['Content-Type'].startswith('application/x-gzip'):
+        raise ValueError("O arquivo não é do tipo .ar.gz")
+
+    # Salvando o arquivo temporariamente
+    with open('arquivo.ar.gz', 'wb') as f:
+        for chunk in response.iter_content(chunk_size=8192):
+            if chunk:  # filter out keep-alive new chunks
+                f.write(chunk)
+
+    # Descompactando o arquivo na pasta atual
+    with tarfile.open('arquivo.ar.gz', 'r:gz') as tar:
+        tar.extractall(path=caminho_atual)
+
+
 def txt2json(input, output):
     dataset = []
 
@@ -31,8 +61,10 @@ def txt2json(input, output):
         json.dump(dataset, json_file, ensure_ascii=False, indent=4)
 
 def get_data():
+    url = "https://www.cs.cmu.edu/~dbamman/data/booksummaries.tar.gz"
     if not os.path.exists("books.json"):
-        txt2json("booksummaries.txt", "books.json")
+        baixar_e_descompactar(url)
+        txt2json("booksummaries/booksummaries.txt", "books.json")
 
     with open("books.json", "r", encoding="utf-8") as file:
         books = json.load(file)
