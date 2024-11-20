@@ -3,6 +3,7 @@ from pinecone import Pinecone
 from openai import OpenAI
 from dotenv import load_dotenv
 import os
+import json
 
 load_dotenv()
 
@@ -32,4 +33,12 @@ def recomendar(conversa:list):
         messages=messages
     )
     
-    return response.choices[0].message.content, [{'nome':r['nome'], 'genero':r['genero'] } for r in resultados]
+    for r in resultados:
+        print(', '.join(list(json.loads((r['genero'])).values())) if r['genero'] is not None else '')
+    
+    return response.choices[0].message.content, [
+        {
+            'titulo':r['titulo'], 
+            'genero':', '.join(list(json.loads((r['genero'])).values())) if r['genero'] is not None else '' 
+        } for r in resultados
+    ]

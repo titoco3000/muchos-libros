@@ -14,7 +14,7 @@ def exibirRecomendacao(resposta:str, recs:list):
     with col2:
         if len(recs) > 0:
             df = pd.DataFrame(
-                [[livro["nome"], livro["genero"]] for livro in recs], columns=("Nome","Gênero"))
+                [[livro["titulo"], livro["genero"]] for livro in recs], columns=("Título","Gênero"))
             st.table(df)
 
 
